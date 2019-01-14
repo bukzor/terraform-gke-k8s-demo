@@ -70,8 +70,8 @@ state after two runs, but I suspect this is mostly coincidental.
 
 On the first run it tears down the GKE cluster but none of its k8s contents,
 which makes it seem like the provider is being treated as a special case in the
-dependency graph when it shouldn't. It does successfully bring up the new
-cluster, but again none of its k8s contents. On the second run, it notices that
+dependency graph when it shouldn't. The first run does successfully bring up the
+new cluster, but none of its k8s contents. On the second run, it notices that
 the k8s contesnts are missing and successfully provisions them.
 
 Note that the original k8s resources were never deprovisioned. This would lead
@@ -83,7 +83,7 @@ before going away.
 Keep in mind, however, this edge-case will apply to *any* dependent provider
 whose module's parameters change. GKE and k8s are incidental here, and I feel
 sure that in the broader world there will exist a case where this slight
-incorrectness ill be quite damaging.
+incorrectness will be quite damaging.
 
 ### Teardown
 
@@ -145,7 +145,7 @@ from loading configurations by specifying `-config=""`.
 ```
 
 I'm sure there's some legacy reason this is hard to fix, but why isn't it as
-simple as using whatever `tf plan` uses? It doesn't have any problem reasoning
+simple as using whatever `tf plan` uses? *It* doesn't have any problem reasoning
 about this resource, so it must have configured the kubernetes provider before
 starting its work.
 
@@ -170,7 +170,7 @@ Error: Error asking for user input: 1 error(s) occurred:
 
 ```
 
-This (and renaming/deleting) is a fairly command and idiomatic thing to do with
+This (and renaming/deleting) is a fairly common and idiomatic thing to do with
 terraform resources, especially during prototyping, so this is a major headache
 to me and my team.
 
